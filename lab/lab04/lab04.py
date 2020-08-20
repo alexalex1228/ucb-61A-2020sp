@@ -1,197 +1,156 @@
-LAB_SOURCE_FILE = __file__
+""" Lab 04 """
 
 
-def reverse_iter(lst):
-    """Returns the reverse of the given list.
+this_file = __file__
 
-    >>> reverse_iter([1, 2, 3, 4])
-    [4, 3, 2, 1]
-    >>> import inspect, re
-    >>> cleaned = re.sub(r"#.*\\n", '', re.sub(r'"{3}[\s\S]*?"{3}', '', inspect.getsource(reverse_iter)))
-    >>> print("Do not use lst[::-1], lst.reverse(), or reversed(lst)!") if any([r in cleaned for r in ["[::", ".reverse", "reversed"]]) else None
-    """
-    "*** YOUR CODE HERE ***"
-    length= len(lst)
-    list=[]
-    for i in range(length-1, -1, -1):
-    	list.append(lst[i])
-    return list
+def skip_add(n):
+    """ Takes a number n and returns n + n-2 + n-4 + n-6 + ... + 0.
 
-def reverse_recursive(lst):
-    """Returns the reverse of the given list.
-
-    >>> reverse_recursive([1, 2, 3, 4])
-    [4, 3, 2, 1]
-    >>> import inspect, re
-    >>> cleaned = re.sub(r"#.*\\n", '', re.sub(r'"{3}[\s\S]*?"{3}', '', inspect.getsource(reverse_recursive)))
-    >>> print("Do not use lst[::-1], lst.reverse(), or reversed(lst)!") if any([r in cleaned for r in ["[::", ".reverse", "reversed"]]) else None
-    """
-    "*** YOUR CODE HERE ***"
-    length= len(lst)
-    if length==1:
-    	return lst
-    else:
-    	list=[lst[length-1]]
-    	return list+ reverse_recursive(lst[0:length-1])
-
-
-from math import sqrt
-def distance(city_a, city_b):
-    """
-    >>> city_a = make_city('city_a', 0, 1)
-    >>> city_b = make_city('city_b', 0, 2)
-    >>> distance(city_a, city_b)
-    1.0
-    >>> city_c = make_city('city_c', 6.5, 12)
-    >>> city_d = make_city('city_d', 2.5, 15)
-    >>> distance(city_c, city_d)
-    5.0
-    """
-    "*** YOUR CODE HERE ***"
-    lat_1, lon_1 = get_lat(city_a), get_lon(city_a)
-    lat_2, lon_2 = get_lat(city_b), get_lon(city_b)
-    return sqrt((lat_1 - lat_2)**2 + (lon_1 - lon_2)**2)
-
-def closer_city(lat, lon, city_a, city_b):
-    """
-    Returns the name of either city_a or city_b, whichever is closest to
-    coordinate (lat, lon).
-
-    >>> berkeley = make_city('Berkeley', 37.87, 112.26)
-    >>> stanford = make_city('Stanford', 34.05, 118.25)
-    >>> closer_city(38.33, 121.44, berkeley, stanford)
-    'Stanford'
-    >>> bucharest = make_city('Bucharest', 44.43, 26.10)
-    >>> vienna = make_city('Vienna', 48.20, 16.37)
-    >>> closer_city(41.29, 174.78, bucharest, vienna)
-    'Bucharest'
-    """
-    "*** YOUR CODE HERE ***"
-    city= make_city("city", lat, lon)
-    distance1= distance(city, city_a)
-    distance2= distance(city, city_b)
-    if distance1 > distance2:
-    	return get_name(city_b)
-    else:
-    	return get_name(city_a)
-
-def check_abstraction():
-    """
-    There's nothing for you to do for this function, it's just here for the extra doctest
-    >>> change_abstraction(True)
-    >>> city_a = make_city('city_a', 0, 1)
-    >>> city_b = make_city('city_b', 0, 2)
-    >>> distance(city_a, city_b)
-    1.0
-    >>> city_c = make_city('city_c', 6.5, 12)
-    >>> city_d = make_city('city_d', 2.5, 15)
-    >>> distance(city_c, city_d)
-    5.0
-    >>> berkeley = make_city('Berkeley', 37.87, 112.26)
-    >>> stanford = make_city('Stanford', 34.05, 118.25)
-    >>> closer_city(38.33, 121.44, berkeley, stanford)
-    'Stanford'
-    >>> bucharest = make_city('Bucharest', 44.43, 26.10)
-    >>> vienna = make_city('Vienna', 48.20, 16.37)
-    >>> closer_city(41.29, 174.78, bucharest, vienna)
-    'Bucharest'
-    >>> change_abstraction(False)
-    """
-
-
-# Treat all the following code as being behind an abstraction layer, you shouldn't need to look at it!
-
-def make_city(name, lat, lon):
-    """
-    >>> city = make_city('Berkeley', 0, 1)
-    >>> get_name(city)
-    'Berkeley'
-    >>> get_lat(city)
-    0
-    >>> get_lon(city)
-    1
-    """
-    if change_abstraction.changed:
-        return {"name" : name, "lat" : lat, "lon" : lon}
-    else:
-        return [name, lat, lon]
-
-def get_name(city):
-    """
-    >>> city = make_city('Berkeley', 0, 1)
-    >>> get_name(city)
-    'Berkeley'
-    """
-    if change_abstraction.changed:
-        return city["name"]
-    else:
-        return city[0]
-
-def get_lat(city):
-    """
-    >>> city = make_city('Berkeley', 0, 1)
-    >>> get_lat(city)
-    0
-    """
-    if change_abstraction.changed:
-        return city["lat"]
-    else:
-        return city[1]
-
-def get_lon(city):
-    """
-    >>> city = make_city('Berkeley', 0, 1)
-    >>> get_lon(city)
-    1
-    """
-    if change_abstraction.changed:
-        return city["lon"]
-    else:
-        return city[2]
-
-def change_abstraction(change):
-    change_abstraction.changed = change
-
-change_abstraction.changed = False
-
-
-def add_chars(w1, w2):
-    """
-    Return a string containing the characters you need to add to w1 to get w2.
-
-    You may assume that w1 is a subsequence of w2.
-
-    >>> add_chars("owl", "howl")
-    'h'
-    >>> add_chars("want", "wanton")
-    'on'
-    >>> add_chars("rat", "radiate")
-    'diae'
-    >>> add_chars("a", "prepare")
-    'prepre'
-    >>> add_chars("resin", "recursion")
-    'curo'
-    >>> add_chars("fin", "effusion")
-    'efuso'
-    >>> add_chars("coy", "cacophony")
-    'acphon'
+    >>> skip_add(5)  # 5 + 3 + 1 + 0
+    9
+    >>> skip_add(10) # 10 + 8 + 6 + 4 + 2 + 0
+    30
+    >>> # Do not use while/for loops!
     >>> from construct_check import check
-    >>> # ban iteration and sets
-    >>> check(LAB_SOURCE_FILE, 'add_chars',
-    ...       ['For', 'While', 'Set', 'SetComp']) # Must use recursion
+    >>> # ban iteration
+    >>> check(this_file, 'skip_add',
+    ...       ['While', 'For'])
     True
     """
     "*** YOUR CODE HERE ***"
-    length= len(w1)
-    if w1==w2:
-        return ''
-    if length==0:
-        return w2
-    elif w1[0]==w2[0]:
-        return add_chars(w1[1:len(w1)], w2[1:len(w2)])
+    if n<=1:
+        return n
     else:
-        return w2[0]+add_chars(w1, w2[1:len(w2)])
+        return n+skip_add(n-2)
+
+def summation(n, term):
+
+    """Return the sum of the first n terms in the sequence defined by term.
+    Implement using recursion!
+
+    >>> summation(5, lambda x: x * x * x) # 1^3 + 2^3 + 3^3 + 4^3 + 5^3
+    225
+    >>> summation(9, lambda x: x + 1) # 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10
+    54
+    >>> summation(5, lambda x: 2**x) # 2^1 + 2^2 + 2^3 + 2^4 + 2^5
+    62
+    >>> # Do not use while/for loops!
+    >>> from construct_check import check
+    >>> # ban iteration
+    >>> check(this_file, 'summation',
+    ...       ['While', 'For'])
+    True
+    """
+    assert n >= 1
+    "*** YOUR CODE HERE ***"
+    if n==1:
+        return term(n)
+    else:
+        return term(n)+summation(n-1, term)
+
+def gcd(a, b):
+    """Returns the greatest common divisor of a and b.
+    Should be implemented using recursion.
+
+    >>> gcd(34, 19)
+    1
+    >>> gcd(39, 91)
+    13
+    >>> gcd(20, 30)
+    10
+    >>> gcd(40, 40)
+    40
+    """
+    "*** YOUR CODE HERE ***"
+    if a<b:
+        temp= a
+        a= b
+        b= temp
+    if b==0:
+        return a
+    else:
+        return gcd(b, a%b)
+
+def paths(m, n):
+    """Return the number of paths from one corner of an
+    M by N grid to the opposite corner.
+
+    >>> paths(2, 2)
+    2
+    >>> paths(5, 7)
+    210
+    >>> paths(117, 1)
+    1
+    >>> paths(1, 157)
+    1
+    """
+    "*** YOUR CODE HERE ***"
+    if m==1 or n==1:
+        return 1
+    else:
+        return paths(m-1, n)+paths(m, n-1)
+
+
+def max_subseq(n, l):
+    """
+    Return the maximum subsequence of length at most l that can be found in the given number n.
+    For example, for n = 20125 and l = 3, we have that the subsequences are
+        2
+        0
+        1
+        2
+        5
+        20
+        21
+        22
+        25
+        01
+        02
+        05
+        12
+        15
+        25
+        201
+        202
+        205
+        212
+        215
+        225
+        012
+        015
+        025
+        125
+    and of these, the maxumum number is 225, so our answer is 225.
+
+    >>> max_subseq(20125, 3)
+    225
+    >>> max_subseq(20125, 5)
+    20125
+    >>> max_subseq(20125, 6) # note that 20125 == 020125
+    20125
+    >>> max_subseq(12345, 3)
+    345
+    >>> max_subseq(12345, 0) # 0 is of length 0
+    0
+    >>> max_subseq(12345, 1)
+    5
+    """
+    "*** YOUR CODE HERE ***"
+    def helper(seq, l, digit=0):
+        if l==0:
+            return digit
+        else:
+            max_n = int(max(seq[0:len(seq) - l + 1]))
+            index = seq.index(str(max_n))
+            return helper(seq[index+1:], l-1, digit*10+max_n)
+
+    seq= list(str(n))
+    if len(seq)<=l:
+        return n
+    else:
+        return helper(seq, l)
 
 
 
 
+        

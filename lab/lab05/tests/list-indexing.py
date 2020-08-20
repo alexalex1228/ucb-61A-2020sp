@@ -7,10 +7,10 @@ test = {
         {
           'code': r"""
           >>> x = [1, 3, [5, 7], 9] # Write the expression that indexes into x to output the 7
-          3450d5df7f6d639c9dc883cf31cc62bd
+          a3125442f2585c4dc7f3ced46c1fcaab
           # locked
           >>> x = [[3, [5, 7], 9]] # Write the expression that indexes into x to output the 7
-          9e7bc1866151855ea8424d3c51f4dbe6
+          caafb1bc451eaace7408a7513a8b7502
           # locked
           """,
           'hidden': False,
@@ -26,10 +26,10 @@ test = {
           'code': r"""
           >>> lst = [3, 2, 7, [84, 83, 82]]
           >>> lst[4]
-          8dfecce35cfbb620490b1aa9637bdafd
+          66901ed5775b51743d745870a1a883e3
           # locked
           >>> lst[3][0]
-          89d2c4e2851d68c81d820360eb31bc36
+          fb50293c27bf0293f83a92927172e455
           # locked
           """,
           'hidden': False,
